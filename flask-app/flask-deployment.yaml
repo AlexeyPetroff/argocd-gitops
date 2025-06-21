@@ -19,5 +19,5 @@ spec:
           ports:
             - containerPort: 8080
           envFrom:
-            configMapRef:
-              name: flask-app-config
+            - configMapRef:
+                name: flask-app-config
