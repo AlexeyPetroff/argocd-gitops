@@ -18,6 +18,24 @@ spec:
           image: ghcr.io/alexeypetroff/flask-app:542ac6d05345c19a76fe75c32fab93bbc3dad4f0
           ports:
             - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "192Mi"
+            limits:
+              memory: "192Mi"
           envFrom:
             - configMapRef:
                 name: flask-app-config
