@@ -18,6 +18,6 @@ spec:
           image: ghcr.io/alexeypetroff/flask-app:542ac6d05345c19a76fe75c32fab93bbc3dad4f0
           ports:
             - containerPort: 8080
-          env:
-            - name: APP_NAME
-              value: "airtasker"
+          envFrom:
+            configMapRef:
+              name: flask-app-config
