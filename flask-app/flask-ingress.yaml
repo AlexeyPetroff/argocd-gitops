@@ -11,6 +11,10 @@ metadata:
   name: flask-ingress
   namespace: flask-app
 spec:
+  tls:
+    - hosts:
+        - flask-app.local
+      secretName: flask-app-tls
   ingressClassName: istio
   rules:
     - host: flask-app.local
