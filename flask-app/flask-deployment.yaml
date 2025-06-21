@@ -12,6 +12,18 @@ spec:
       labels:
         app: flask-app
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - flask-app
+                topologyKey: kubernetes.io/hostname
       containers:
         - name: flask-app
           image: ghcr.io/alexeypetroff/flask-app:542ac6d05345c19a76fe75c32fab93bbc3dad4f0
