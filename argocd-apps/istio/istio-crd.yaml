@@ -1,19 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: flask-app
+  name: istio-base
   namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "-3"
 spec:
   project: default
-  source:
-    repoURL: 'https://github.com/AlexeyPetroff/argocd-gitops.git'
-    targetRevision: HEAD
-    path: flask-app
-    directory:
-      recurse: true
   destination:
     server: https://kubernetes.default.svc
-    namespace: flask-app
+    namespace: istio-system
+  source:
+    repoURL: https://istio-release.storage.googleapis.com/charts
+    chart: base
+    targetRevision: 1.26.0
   syncPolicy:
     automated:
       prune: true
